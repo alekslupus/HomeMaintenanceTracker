@@ -64,6 +64,22 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -119,6 +135,7 @@
                                 <generateModelTests>false</generateModelTests>
                                 <interfaceOnly>true</interfaceOnly>
                                 <generateRecord>true</generateRecord>
+                                <useRecords>true</useRecords>
                                 <useTags>true</useTags>
                                 <useSpringBoot3>true</useSpringBoot3>
                                 <serialisationLibrary>jackson</serialisationLibrary>

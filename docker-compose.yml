@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:16
+    container_name: home_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: home_maintenance
+      POSTGRES_USER: home_user
+      POSTGRES_PASSWORD: home_pass
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
