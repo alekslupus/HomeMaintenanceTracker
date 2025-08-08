@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.4</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.alekslupus</groupId>
+	<artifactId>HomeMaintenanceTracker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>HomeMaintenanceTracker</name>
+	<description>Pet project</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>io.soabase.record-builder</groupId>
+            <artifactId>record-builder-core</artifactId>
+            <version>37</version>
+            <scope>provided</scope>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.21</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.soabase.record-builder</groupId>
+                            <artifactId>record-builder-processor</artifactId>
+                            <version>37</version>
+                        </path>
+                        <path>
+                            <groupId>jakarta.validation</groupId>
+                            <artifactId>jakarta.validation-api</artifactId>
+                            <version>3.0.2</version>
+                        </path>
+                        <path>
+                            <groupId>io.swagger.core.v3</groupId>
+                            <artifactId>swagger-annotations</artifactId>
+                            <version>2.2.21</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.13.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/home-maintenance.yml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <modelPackage>com.alekslupus.homemaintenancetracker.api.dto</modelPackage>
+                            <apiPackage>com.alekslupus.homemaintenancetracker.api</apiPackage>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <configOptions>
+                                <templateDir>${project.basedir}/src/main/resources/templates</templateDir>
+                                <generateApiTests>false</generateApiTests>
+                                <generateModelTests>false</generateModelTests>
+                                <interfaceOnly>true</interfaceOnly>
+                                <generateRecord>true</generateRecord>
+                                <useTags>true</useTags>
+                                <useSpringBoot3>true</useSpringBoot3>
+                                <serialisationLibrary>jackson</serialisationLibrary>
+                                <openApiNullable>false</openApiNullable>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+	</build>
+
+</project>

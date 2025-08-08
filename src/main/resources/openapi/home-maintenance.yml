@@ -1,0 +1,153 @@
+openapi: 3.1.0
+info:
+  title: Home Maintenance Tracker API
+  version: 0.1.0
+  description: API для учёта объектов, задач обслуживания и расходников
+
+paths:
+  /assets:
+    get:
+      summary: Получить список всех объектов
+      responses:
+        '200':
+          description: Список объектов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Asset'
+    post:
+      summary: Добавить новый объект
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Asset'
+      responses:
+        '201':
+          description: Объект создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+
+  /maintenance-tasks:
+    get:
+      summary: Получить список всех задач обслуживания
+      responses:
+        '200':
+          description: Список задач
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MaintenanceTask'
+    post:
+      summary: Добавить новую задачу обслуживания
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceTask'
+      responses:
+        '201':
+          description: Задача создана
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceTask'
+
+  /consumables:
+    get:
+      summary: Получить список всех расходников
+      responses:
+        '200':
+          description: Список расходников
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consumable'
+    post:
+      summary: Добавить новый расходник
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Consumable'
+      responses:
+        '201':
+          description: Расходник создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consumable'
+
+components:
+  schemas:
+    Asset:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Уникальный идентификатор объекта
+        name:
+          type: string
+          description: Название объекта
+        description:
+          type: string
+          description: Описание объекта
+
+    MaintenanceTask:
+      type: object
+      required:
+        - id
+        - assetId
+        - name
+        - dueDate
+      properties:
+        id:
+          type: string
+          format: uuid
+        assetId:
+          type: string
+          format: uuid
+          description: ID объекта, к которому относится задача
+        name:
+          type: string
+        dueDate:
+          type: string
+          format: date
+        status:
+          type: string
+          enum: [PENDING, COMPLETED, OVERDUE]
+        notes:
+          type: string
+
+    Consumable:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        quantity:
+          type: number
+          format: double
+        unit:
+          type: string
+          description: Единица измерения (шт, л, кг и т.д.)
